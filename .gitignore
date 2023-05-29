@@ -1,0 +1,4 @@
+# Project exclude paths
+/probe-link-example/target/
+/probe-link-spring-boot-starter/target/
+.idea
