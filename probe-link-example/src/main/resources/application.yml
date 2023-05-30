@@ -1,0 +1,17 @@
+server:
+  servlet:
+    context-path: /sys/api
+  port: 8090
+
+spring:
+  application:
+    name: example-app
+
+
+probe:
+  link:
+    enabled: true
+    app-name: ${spring.application.name}
+    base-uri: ${server.servlet.context-path}
+    exclude:
+      - org.springframework.boot.autoconfigure.web.servlet.error.*

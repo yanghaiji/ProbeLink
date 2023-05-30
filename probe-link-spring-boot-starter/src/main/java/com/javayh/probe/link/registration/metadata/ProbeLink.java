@@ -19,13 +19,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProbeLink {
-
+    /**
+     * 方法
+     */
     private String method;
 
+    /**
+     * 类名
+     */
     private String className;
 
+    /**
+     * 方法类型
+     */
     private String type;
 
+    /**
+     * url
+     */
     private String url;
+
+    /**
+     * 状态， 0:正常需要扫描的， 1:排除掉的url，但是为了方便统计，这里也需要扫描出来，以方便后期的修改
+     */
+    private Integer status;
 
 }

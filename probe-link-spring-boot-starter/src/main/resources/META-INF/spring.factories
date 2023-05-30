@@ -1,4 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.javayh.probe.link.configuration.ProbeLinkProperties,\
-  com.javayh.probe.link.registration.RequestMappingScanner,\
-  com.javayh.probe.link.registration.ProbeLinkCommandLineRunner
+  com.javayh.probe.link.annotation.EnableAutoProbeLinkConfiguration

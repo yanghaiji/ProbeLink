@@ -17,7 +17,9 @@ public class ProbeLinkSelector implements ImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
         return new String[]{
-                "com.javayh.probe.link.registration.RequestMappingScanner"
+                "com.javayh.probe.link.registration.RequestMappingScanner",
+                "com.javayh.probe.link.registration.ProbeLinkCommandLineRunner",
+                "com.javayh.probe.link.configuration.ProbeLinkProperties"
         };
     }
 }
