@@ -1,9 +1,9 @@
 package com.javayh.probe.link.registration;
 
-import com.alibaba.fastjson.JSON;
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
+import com.javayh.probe.link.registration.metadata.DataBuild;
 import com.javayh.probe.link.registration.metadata.ProbeLink;
-import com.javayh.probe.link.utils.PropertiesCover;
+import com.javayh.probe.link.util.PropertiesCover;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.env.Environment;
@@ -43,7 +43,13 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
         // current url
         String url = PropertiesCover.getUrl(probeUri, environment);
         List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties);
-        log.info(JSON.toJSONString(scanner));
+        DataBuild.build(appName, url, scanner, probeLinkProperties);
+        log.info("===================================");
+        log.info("==== app server name : {}", appName);
+        log.info("==== app context path : {}", url);
+        log.info("==== total number of urls : {}", scanner.size());
+        log.info("===================================");
+
     }
 
 }

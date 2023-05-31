@@ -1,4 +1,4 @@
-package com.javayh.probe.link.utils;
+package com.javayh.probe.link.util;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
 import com.javayh.probe.link.enums.AppInfoEnum;

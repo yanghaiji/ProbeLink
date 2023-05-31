@@ -52,8 +52,23 @@ public class ProbeLinkProperties {
      */
     private boolean enabled = true;
 
+    /**
+     * 持久化的驱动,默认是 memory
+     */
+    private DriverType driverType = DriverType.MEMORY;
+
     public void setExclude(List<String> exclude) {
         exclude.add("org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController");
         this.exclude = exclude;
+    }
+
+    public static enum DriverType {
+        MEMORY,
+        JDBC,
+        KAFKA,
+        RABBITMQ;
+
+        private DriverType() {
+        }
     }
 }

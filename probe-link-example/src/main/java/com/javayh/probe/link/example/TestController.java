@@ -1,5 +1,7 @@
 package com.javayh.probe.link.example;
 
+import com.javayh.probe.link.driver.ProbeLinkMemoryCache;
+import com.javayh.probe.link.registration.metadata.ServerBaseInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +33,11 @@ public class TestController {
     @GetMapping(value = "/user/add")
     public Map<String, String> adduser(Map<String, String> user) {
         return user;
+    }
+
+
+    @GetMapping(value = "/get")
+    public ServerBaseInfo get() {
+        return ProbeLinkMemoryCache.get("example-app");
     }
 }
