@@ -17,6 +17,7 @@
         <fastjson.version>1.2.83</fastjson.version>
         <spring.version>5.3.14</spring.version>
         <common-lang3.version>3.12.0</common-lang3.version>
+        <guava.version>30.1-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
@@ -50,18 +51,23 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.3.14</version>
+            <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>5.3.14</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${common-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
