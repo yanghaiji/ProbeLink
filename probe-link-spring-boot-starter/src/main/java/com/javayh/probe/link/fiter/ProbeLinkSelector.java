@@ -19,7 +19,10 @@ public class ProbeLinkSelector implements ImportSelector {
         return new String[]{
                 "com.javayh.probe.link.registration.RequestMappingScanner",
                 "com.javayh.probe.link.registration.ProbeLinkCommandLineRunner",
-                "com.javayh.probe.link.configuration.ProbeLinkProperties"
+                "com.javayh.probe.link.configuration.ProbeLinkProperties",
+                "com.javayh.probe.link.driver.JdbcDriver",
+                "com.javayh.probe.link.driver.repository.jdbc.ProbeLinkRepository",
+                "com.javayh.probe.link.driver.repository.jdbc.ServerBaseInfoRepository"
         };
     }
 }

@@ -25,13 +25,15 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
     private final RequestMappingScanner requestMappingScanner;
     private final Environment environment;
     private final ProbeLinkProperties probeLinkProperties;
+    private final DataBuild dataBuild;
 
 
     public ProbeLinkCommandLineRunner(RequestMappingScanner requestMappingScanner, Environment environment,
-                                      ProbeLinkProperties probeLinkProperties) {
+                                      ProbeLinkProperties probeLinkProperties, DataBuild dataBuild) {
         this.requestMappingScanner = requestMappingScanner;
         this.environment = environment;
         this.probeLinkProperties = probeLinkProperties;
+        this.dataBuild = dataBuild;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
         // current url
         String url = PropertiesCover.getUrl(probeUri, environment);
         List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties);
-        DataBuild.build(appName, url, scanner, probeLinkProperties);
+        dataBuild.build(appName, url, scanner, probeLinkProperties);
         log.info("===================================");
         log.info("==== app server name : {}", appName);
         log.info("==== app context path : {}", url);

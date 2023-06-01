@@ -40,4 +40,9 @@ public class TestController {
     public ServerBaseInfo get() {
         return ProbeLinkMemoryCache.get("example-app");
     }
+
+    @GetMapping(value = "/get/user")
+    public ServerBaseInfo getUset() {
+        return ProbeLinkMemoryCache.get("example-app");
+    }
 }

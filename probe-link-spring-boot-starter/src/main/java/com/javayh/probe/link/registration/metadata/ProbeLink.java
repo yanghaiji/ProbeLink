@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * <p>
@@ -18,7 +24,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "probe_link_tcu_info")
+@EntityListeners(value = AuditingEntityListener.class)
 public class ProbeLink {
+
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    private Long proId;
     /**
      * 方法
      */
@@ -43,5 +59,18 @@ public class ProbeLink {
      * 状态， 0:正常需要扫描的， 1:排除掉的url，但是为了方便统计，这里也需要扫描出来，以方便后期的修改
      */
     private Integer status;
+
+    /**
+     * 创建时间
+     */
+    @CreatedDate
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @LastModifiedDate
+    private Date updateTime;
+
 
 }

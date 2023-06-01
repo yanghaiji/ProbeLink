@@ -6,6 +6,15 @@ server:
 spring:
   application:
     name: example-app
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/probe_link?rewriteBatchedStatements=true
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 
 probe:
@@ -15,4 +24,4 @@ probe:
     base-uri: ${server.servlet.context-path}
     exclude:
       - org.springframework.boot.autoconfigure.web.servlet.error.TestController
-    driver-type: memory
+    driver-type: jdbc
