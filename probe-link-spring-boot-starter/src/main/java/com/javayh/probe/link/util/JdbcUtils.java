@@ -1,7 +1,7 @@
 package com.javayh.probe.link.util;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
-import com.javayh.probe.link.registration.metadata.ServerBaseInfo;
+import com.javayh.probe.link.registration.metadata.ProbeLink;
 
 import java.sql.*;
 
@@ -72,7 +72,7 @@ public class JdbcUtils {
     }
 
 
-    public static void serverBatch(ProbeLinkProperties probeLinkProperties,ServerBaseInfo baseInfo) {
+    public static void serverBatch(ProbeLinkProperties probeLinkProperties, ProbeLink baseInfo) {
         Connection conn = getConnection(probeLinkProperties);
 
         PreparedStatement ps = null;

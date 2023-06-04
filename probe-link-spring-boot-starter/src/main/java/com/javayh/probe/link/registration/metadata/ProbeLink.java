@@ -34,7 +34,17 @@ public class ProbeLink {
     private Long id;
 
 
-    private Long proId;
+    /**
+     * 服务名
+     */
+    @Column(columnDefinition = "VARCHAR(64) UNIQUE NOT NULL")
+    private String appName;
+
+    /**
+     * context path
+     */
+    private String contextPath;
+
     /**
      * 方法
      */

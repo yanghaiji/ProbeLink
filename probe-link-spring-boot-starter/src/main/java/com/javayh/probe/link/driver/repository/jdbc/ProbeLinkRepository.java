@@ -20,6 +20,5 @@ import java.util.List;
 @Repository
 public interface ProbeLinkRepository extends CrudRepository<ProbeLink, String> {
 
-    List<ProbeLink> getByProId(Long proId);
-
+    List<ProbeLink> getByAppName(String appName);
 }

@@ -44,7 +44,7 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
         String appName = PropertiesCover.getAppName(probeName, environment);
         // current url
         String url = PropertiesCover.getUrl(probeUri, environment);
-        List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties);
+        List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties,appName,url);
         dataBuild.build(appName, url, scanner, probeLinkProperties);
         log.info("===================================");
         log.info("==== app server name : {}", appName);

@@ -39,12 +39,14 @@ public class RequestMappingScanner {
      * </p>
      *
      * @param probeLinkProperties {@link ProbeLinkProperties}
+     * @param appName
+     * @param url
      * @return java.util.List<com.javayh.probe.link.registration.metadata.ProbeLink>
      * @version 1.0.0
      * @author hai ji
      * @since 2023/5/29
      */
-    public List<ProbeLink> scanner(ProbeLinkProperties probeLinkProperties) {
+    public List<ProbeLink> scanner(ProbeLinkProperties probeLinkProperties, String appName, String contextPath) {
         RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         // 获取url与类和方法的对应信息
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
@@ -57,7 +59,10 @@ public class RequestMappingScanner {
             assert p != null;
             Method methodMethod = method.getMethod();
             String typeName = method.getBeanType().getTypeName();
-            ProbeLink.ProbeLinkBuilder probeLink = ProbeLink.builder().className(methodMethod.getDeclaringClass().getName()).method(methodMethod.getName());
+            ProbeLink.ProbeLinkBuilder probeLink = ProbeLink.builder()
+                    .className(methodMethod.getDeclaringClass().getName())
+                    .contextPath(contextPath).appName(appName)
+                    .method(methodMethod.getName());
             // 进行状态标记
             if (exclude.contains(typeName)) {
                 probeLink.status(ApiStatusEnum.EXCLUDE.getStatus());

@@ -36,21 +36,20 @@ public class DataBuild {
      * @param probeLinkProperties probe link的配置信息 {@link ProbeLinkProperties}
      */
     public void build(String appName, String url, List<ProbeLink> probeLinks, ProbeLinkProperties probeLinkProperties) {
-        ServerBaseInfo baseInfo = ServerBaseInfo.builder().appName(appName).contextPath(url).probeLinks(probeLinks).build();
         // 根据选择的驱动类型，进行不同方式的持久化
         switch (probeLinkProperties.getDriverType()) {
             case JDBC:
-                jdbcDriver.initData(appName, baseInfo, probeLinkProperties);
+                jdbcDriver.initData(appName, probeLinks, probeLinkProperties);
                 break;
             case KAFKA:
-                KafkaDriver.initData(appName, baseInfo);
+                KafkaDriver.initData(appName, probeLinks);
                 break;
             case RABBITMQ:
-                RabbitMqDriver.initData(appName, baseInfo);
+                RabbitMqDriver.initData(appName, probeLinks);
                 break;
             default:
                 log.info("probe link memory persistence is used by default");
-                ProbeLinkMemoryCache.initCache(appName, baseInfo);
+                ProbeLinkMemoryCache.initCache(appName, probeLinks);
         }
     }
 }
