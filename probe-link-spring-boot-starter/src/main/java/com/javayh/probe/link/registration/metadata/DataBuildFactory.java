@@ -1,12 +1,11 @@
 package com.javayh.probe.link.registration.metadata;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
-import com.javayh.probe.link.driver.JdbcDriver;
+import com.javayh.probe.link.driver.JdbcRepository;
 import com.javayh.probe.link.driver.KafkaDriver;
 import com.javayh.probe.link.driver.ProbeLinkMemoryCache;
 import com.javayh.probe.link.driver.RabbitMqDriver;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -22,10 +21,13 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class DataBuild {
+public class DataBuildFactory {
 
-    @Autowired
-    private JdbcDriver jdbcDriver;
+    private final JdbcRepository jdbcDriver;
+
+    public DataBuildFactory(JdbcRepository jdbcDriver) {
+        this.jdbcDriver = jdbcDriver;
+    }
 
     /**
      * 数据构建与持久话
@@ -39,7 +41,7 @@ public class DataBuild {
         // 根据选择的驱动类型，进行不同方式的持久化
         switch (probeLinkProperties.getDriverType()) {
             case JDBC:
-                jdbcDriver.initData(appName, probeLinks, probeLinkProperties);
+                jdbcDriver.initData(appName, probeLinks);
                 break;
             case KAFKA:
                 KafkaDriver.initData(appName, probeLinks);

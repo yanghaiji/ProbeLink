@@ -4,7 +4,6 @@ import com.javayh.probe.link.configuration.ProbeLinkProperties;
 import com.javayh.probe.link.driver.repository.jdbc.ProbeLinkRepository;
 import com.javayh.probe.link.registration.metadata.ProbeLink;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedList;
@@ -22,13 +21,16 @@ import java.util.Objects;
  */
 @Slf4j
 @Configuration
-public class JdbcDriver {
+public class JdbcRepository {
 
-    @Autowired
-    private ProbeLinkRepository probeLinkRepository;
+    private final ProbeLinkRepository probeLinkRepository;
+
+    public JdbcRepository(ProbeLinkRepository probeLinkRepository) {
+        this.probeLinkRepository = probeLinkRepository;
+    }
 
 
-    public void initData(String appName, List<ProbeLink> baseInfo, ProbeLinkProperties probeLinkProperties) {
+    public void initData(String appName, List<ProbeLink> baseInfo) {
         // 查询
         List<ProbeLink> serverBaseInfo = probeLinkRepository.getByAppName(appName);
         // 不存在我们则新增
@@ -37,6 +39,16 @@ public class JdbcDriver {
         } else {
             // 存在则进行修改
             List<ProbeLink> probeLinks = new LinkedList<>();
+            // 数据对比
+            baseInfo.forEach(o -> {
+                serverBaseInfo.forEach(server -> {
+                    if (!(server.getClassName().equals(o.getClassName()) && server.getUrl().equals(o.getUrl())
+                            && server.getType().equals(o.getType()) && server.getMethod().equals(o.getMethod()))) {
+                        probeLinks.add(o);
+                    }
+                });
+            });
+            // 新增数据
             probeLinkRepository.saveAll(probeLinks);
         }
 

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * <p>
@@ -82,5 +83,7 @@ public class ProbeLink {
     @LastModifiedDate
     private Date updateTime;
 
-
+    public String getType() {
+        return Objects.isNull(type) ? "" : type;
+    }
 }

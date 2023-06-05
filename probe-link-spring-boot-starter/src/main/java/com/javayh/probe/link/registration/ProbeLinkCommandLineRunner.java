@@ -1,7 +1,7 @@
 package com.javayh.probe.link.registration;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
-import com.javayh.probe.link.registration.metadata.DataBuild;
+import com.javayh.probe.link.registration.metadata.DataBuildFactory;
 import com.javayh.probe.link.registration.metadata.ProbeLink;
 import com.javayh.probe.link.util.PropertiesCover;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +25,11 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
     private final RequestMappingScanner requestMappingScanner;
     private final Environment environment;
     private final ProbeLinkProperties probeLinkProperties;
-    private final DataBuild dataBuild;
+    private final DataBuildFactory dataBuild;
 
 
     public ProbeLinkCommandLineRunner(RequestMappingScanner requestMappingScanner, Environment environment,
-                                      ProbeLinkProperties probeLinkProperties, DataBuild dataBuild) {
+                                      ProbeLinkProperties probeLinkProperties, DataBuildFactory dataBuild) {
         this.requestMappingScanner = requestMappingScanner;
         this.environment = environment;
         this.probeLinkProperties = probeLinkProperties;
