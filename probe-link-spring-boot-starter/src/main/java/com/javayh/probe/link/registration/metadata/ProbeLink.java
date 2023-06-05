@@ -4,6 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * <p>
@@ -18,7 +25,27 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "probe_link_tcu_info")
+@EntityListeners(value = AuditingEntityListener.class)
 public class ProbeLink {
+
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    /**
+     * 服务名
+     */
+    @Column(columnDefinition = "VARCHAR(64) UNIQUE NOT NULL")
+    private String appName;
+
+    /**
+     * context path
+     */
+    private String contextPath;
+
     /**
      * 方法
      */
@@ -44,4 +71,19 @@ public class ProbeLink {
      */
     private Integer status;
 
+    /**
+     * 创建时间
+     */
+    @CreatedDate
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @LastModifiedDate
+    private Date updateTime;
+
+    public String getType() {
+        return Objects.isNull(type) ? "" : type;
+    }
 }

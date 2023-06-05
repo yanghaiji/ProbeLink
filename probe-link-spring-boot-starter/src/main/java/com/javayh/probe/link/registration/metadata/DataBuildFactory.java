@@ -1,11 +1,12 @@
 package com.javayh.probe.link.registration.metadata;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
-import com.javayh.probe.link.driver.JdbcDriver;
+import com.javayh.probe.link.driver.JdbcRepository;
 import com.javayh.probe.link.driver.KafkaDriver;
 import com.javayh.probe.link.driver.ProbeLinkMemoryCache;
 import com.javayh.probe.link.driver.RabbitMqDriver;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
@@ -19,7 +20,14 @@ import java.util.List;
  * @since 2023-05-30
  */
 @Slf4j
-public class DataBuild {
+@Configuration
+public class DataBuildFactory {
+
+    private final JdbcRepository jdbcDriver;
+
+    public DataBuildFactory(JdbcRepository jdbcDriver) {
+        this.jdbcDriver = jdbcDriver;
+    }
 
     /**
      * 数据构建与持久话
@@ -29,22 +37,21 @@ public class DataBuild {
      * @param probeLinks          存放所有的url信息{@link ProbeLink}
      * @param probeLinkProperties probe link的配置信息 {@link ProbeLinkProperties}
      */
-    public static void build(String appName, String url, List<ProbeLink> probeLinks, ProbeLinkProperties probeLinkProperties) {
-        ServerBaseInfo baseInfo = ServerBaseInfo.builder().appName(appName).contextPath(url).probeLinks(probeLinks).build();
+    public void build(String appName, String url, List<ProbeLink> probeLinks, ProbeLinkProperties probeLinkProperties) {
         // 根据选择的驱动类型，进行不同方式的持久化
         switch (probeLinkProperties.getDriverType()) {
             case JDBC:
-                JdbcDriver.initData(appName, baseInfo);
+                jdbcDriver.initData(appName, probeLinks);
                 break;
             case KAFKA:
-                KafkaDriver.initData(appName, baseInfo);
+                KafkaDriver.initData(appName, probeLinks);
                 break;
             case RABBITMQ:
-                RabbitMqDriver.initData(appName, baseInfo);
+                RabbitMqDriver.initData(appName, probeLinks);
                 break;
             default:
                 log.info("probe link memory persistence is used by default");
-                ProbeLinkMemoryCache.initCache(appName, baseInfo);
+                ProbeLinkMemoryCache.initCache(appName, probeLinks);
         }
     }
 }

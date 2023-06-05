@@ -57,6 +57,26 @@ public class ProbeLinkProperties {
      */
     private DriverType driverType = DriverType.MEMORY;
 
+    /**
+     * 数据库url
+     */
+    private String url;
+
+    /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 驱动类型
+     */
+    private String driver;
+
     public void setExclude(List<String> exclude) {
         exclude.add("org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController");
         this.exclude = exclude;

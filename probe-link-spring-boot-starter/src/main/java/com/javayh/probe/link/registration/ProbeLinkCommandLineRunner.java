@@ -1,7 +1,7 @@
 package com.javayh.probe.link.registration;
 
 import com.javayh.probe.link.configuration.ProbeLinkProperties;
-import com.javayh.probe.link.registration.metadata.DataBuild;
+import com.javayh.probe.link.registration.metadata.DataBuildFactory;
 import com.javayh.probe.link.registration.metadata.ProbeLink;
 import com.javayh.probe.link.util.PropertiesCover;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +25,15 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
     private final RequestMappingScanner requestMappingScanner;
     private final Environment environment;
     private final ProbeLinkProperties probeLinkProperties;
+    private final DataBuildFactory dataBuild;
 
 
     public ProbeLinkCommandLineRunner(RequestMappingScanner requestMappingScanner, Environment environment,
-                                      ProbeLinkProperties probeLinkProperties) {
+                                      ProbeLinkProperties probeLinkProperties, DataBuildFactory dataBuild) {
         this.requestMappingScanner = requestMappingScanner;
         this.environment = environment;
         this.probeLinkProperties = probeLinkProperties;
+        this.dataBuild = dataBuild;
     }
 
     @Override
@@ -42,8 +44,8 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
         String appName = PropertiesCover.getAppName(probeName, environment);
         // current url
         String url = PropertiesCover.getUrl(probeUri, environment);
-        List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties);
-        DataBuild.build(appName, url, scanner, probeLinkProperties);
+        List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties,appName,url);
+        dataBuild.build(appName, url, scanner, probeLinkProperties);
         log.info("===================================");
         log.info("==== app server name : {}", appName);
         log.info("==== app context path : {}", url);
