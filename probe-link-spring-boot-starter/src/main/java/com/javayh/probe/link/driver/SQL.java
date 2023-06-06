@@ -9,6 +9,7 @@ package com.javayh.probe.link.driver;
  * @version 1.0.0
  * @since 2023-06-01
  */
+@Deprecated
 public class SQL {
 
 

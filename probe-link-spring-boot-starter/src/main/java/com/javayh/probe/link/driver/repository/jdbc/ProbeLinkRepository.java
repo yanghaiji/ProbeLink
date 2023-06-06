@@ -18,7 +18,13 @@ import java.util.List;
  */
 @Configuration
 @Repository
-public interface ProbeLinkRepository extends CrudRepository<ProbeLink, String> {
+public interface ProbeLinkRepository extends CrudRepository<ProbeLink, Long> {
 
+    /**
+     * 根据服务名查询索引的probe link
+     *
+     * @param appName application name
+     * @return {@link ProbeLink}
+     */
     List<ProbeLink> getByAppName(String appName);
 }
