@@ -1,5 +1,6 @@
 package com.javayh.probe.link.registration.metadata;
 
+import com.javayh.probe.link.enums.CommonEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,7 +39,6 @@ public class ProbeLink {
     /**
      * 服务名
      */
-    @Column(columnDefinition = "VARCHAR(64) UNIQUE NOT NULL")
     private String appName;
 
     /**
@@ -85,5 +85,18 @@ public class ProbeLink {
 
     public String getType() {
         return Objects.isNull(type) ? "" : type;
+    }
+
+    /**
+     * 拼接key
+     */
+    public String getKey() {
+        StringBuilder sb = new StringBuilder();
+        String keyName = CommonEnum.KEY.getKeyName();
+        sb.append(appName).append(keyName)
+                .append(method).append(keyName)
+                .append(className).append(keyName)
+                .append(getType()).append(keyName).append(url);
+        return sb.toString();
     }
 }

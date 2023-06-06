@@ -38,19 +38,21 @@ public class ProbeLinkCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String probeName = probeLinkProperties.getAppName();
-        String probeUri = probeLinkProperties.getBaseUri();
-        // current app name
-        String appName = PropertiesCover.getAppName(probeName, environment);
-        // current url
-        String url = PropertiesCover.getUrl(probeUri, environment);
-        List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties,appName,url);
-        dataBuild.build(appName, url, scanner, probeLinkProperties);
-        log.info("===================================");
-        log.info("==== app server name : {}", appName);
-        log.info("==== app context path : {}", url);
-        log.info("==== total number of urls : {}", scanner.size());
-        log.info("===================================");
+        if (probeLinkProperties.isEnabled()) {
+            String probeName = probeLinkProperties.getAppName();
+            String probeUri = probeLinkProperties.getBaseUri();
+            // current app name
+            String appName = PropertiesCover.getAppName(probeName, environment);
+            // current url
+            String url = PropertiesCover.getUrl(probeUri, environment);
+            List<ProbeLink> scanner = requestMappingScanner.scanner(probeLinkProperties, appName, url);
+            dataBuild.build(appName, url, scanner, probeLinkProperties);
+            log.info("===================================");
+            log.info("==== app server name : {}", appName);
+            log.info("==== app context path : {}", url);
+            log.info("==== total number of urls : {}", scanner.size());
+            log.info("===================================");
+        }
 
     }
 
